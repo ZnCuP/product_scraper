@@ -1,0 +1,26 @@
+2025-05-30 02:45:04,295 - INFO - 爬虫开始运行...
+2025-05-30 02:45:04,295 - INFO - 本次运行将跳过已存在于数据文件中的 0 条产品URL。
+2025-05-30 02:45:04,295 - INFO - 开始并行爬取关键词搜索结果URL... (使用 10 个并发进程)
+2025-05-30 02:45:04,331 - INFO - 进程开始处理关键词: Oil Level Sensor
+2025-05-30 02:45:10,915 - INFO - 关键词 'Oil Level Sensor' 第一页解析到 66 条URL。
+2025-05-30 02:45:10,915 - INFO - 关键词 'Oil Level Sensor' 共 22 个结果，需要进一步分页。
+2025-05-30 02:45:10,975 - INFO - 从搜索关键词 'Oil Level Sensor' 最终解析出 11 个产品URL。
+2025-05-30 02:45:10,983 - INFO - 所有关键词URL爬取完成，共找到 11 条唯一产品URL。
+2025-05-30 02:45:10,983 - INFO - 本次运行需要爬取 11 条新的/未爬取的产品详情。
+2025-05-30 02:45:10,983 - INFO - 开始并行爬取 11 条产品详情... (使用 2 个并发进程)
+2025-05-30 02:45:14,990 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/oil-level-sensor-apols029
+2025-05-30 02:45:15,136 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/bmw-x5-engine-oil-level-sensor-SjS97F4aGF
+2025-05-30 02:45:19,103 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/mercedes-benz-cl600-engine-oil-level-sensor-JiJZSJmR91
+2025-05-30 02:45:19,323 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/oil-level-sensor-apols037
+2025-05-30 02:45:22,595 - WARNING - 未能从 __NEXT_DATA__ 或 DOM 完整提取产品信息: https://a-premium.com/product/oil-level-sensor-apols024
+2025-05-30 02:45:22,595 - WARNING - 未能从 __NEXT_DATA__ 或 DOM 完整提取产品信息: https://a-premium.com/product/oil-level-sensor-apols024 (尝试 1/3)
+2025-05-30 02:45:23,014 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/mercedes-benz-c300-engine-oil-level-sensor-1ut2PWsQn4
+2025-05-30 02:45:26,708 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/oil-level-sensor-apols033
+2025-05-30 02:45:28,398 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/oil-level-sensor-apols024
+2025-05-30 02:45:30,525 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/dodge-sprinter-2500-engine-oil-level-sensor-D58ppKPxmn
+2025-05-30 02:45:32,197 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/bmw-325ci-oil-level-sensor-with-3-pins-1jPUiIU9DR
+2025-05-30 02:45:34,324 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/volvo-s60-engine-oil-level-sensor-EeGPP9OTPt
+2025-05-30 02:45:35,985 - INFO - 产品详情成功爬取并匹配关键词: https://a-premium.com/product/audi-a4-oil-level-sensor-with-3-pins-YYeeV5obFb
+2025-05-30 02:45:36,062 - INFO - 本次运行新匹配到 11 条产品。
+2025-05-30 02:45:36,063 - INFO - 所有匹配关键词的产品数据（包括新旧）已保存到 data/products_latest.json。总计 11 条。
+2025-05-30 02:45:36,063 - INFO - 爬虫运行结束。总耗时: 31.77 秒。
