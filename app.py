@@ -80,7 +80,22 @@ def main():
         df_display = df_search_target[mask] # 从包含原始数据类型的 df_search_target 中应用掩码
 
     st.header("产品列表 (Product List)")
-    st.write(f"共找到 {len(df_display)} 条产品记录 (Found {len(df_display)} records)")
+    
+    # 计算 OE 号总数 (去重)
+    unique_oe_numbers_set = set()
+    if 'oe_number' in df_display.columns:
+        for oe_list in df_display['oe_number']:
+            if isinstance(oe_list, list):
+                for oe in oe_list:
+                    if oe: #确保OE号不为空
+                        unique_oe_numbers_set.add(str(oe).strip()) #转换为字符串并去空格，确保一致性
+            # 如果原始数据中 oe_number 可能不是列表而是单个值，也需要处理
+            elif pd.notna(oe_list) and oe_list: 
+                unique_oe_numbers_set.add(str(oe_list).strip())
+
+    total_unique_oe_numbers = len(unique_oe_numbers_set)
+        
+    st.write(f"共找到 {len(df_display)} 条产品记录 (Found {len(df_display)} records)。独立 OE 号总数 (Total Unique OE Numbers): {total_unique_oe_numbers}")
 
     column_mapping = {
         'name': 'Name (产品名称)',
