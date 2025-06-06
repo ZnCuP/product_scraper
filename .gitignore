@@ -1,2 +1,52 @@
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
 .venv/
+env/
+venv/
+ENV/
+.Python
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Data/output
+data/*.json
+*.sqlite3
+*.db
+
+# Streamlit cache
+.streamlit/
+
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Test/coverage
+htmlcov/
+.coverage
+.tox/
+.nox/
+.cache/
+pytest_cache/
+
+# Others
+*.bak
+*.swp
+*.tmp

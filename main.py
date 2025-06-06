@@ -30,9 +30,7 @@ def extract_level3_urls_from_online():
     pattern1 = r'"seoUrlHandle"\s*:\s*"([^"]+)"\s*,\s*"level"\s*:\s*3'
     pattern2 = r'"level"\s*:\s*3\s*,\s*"seoUrlHandle"\s*:\s*"([^"]+)"'
     urls = re.findall(pattern1, html) + re.findall(pattern2, html)
-    urls = list(set("/" + u for u in urls))
-    logging.info(f"共发现{len(urls)}个最底层类型")
-    return urls
+    return list(set("/" + u for u in urls))
 
 def parse_products(html):
     m = re.search(
@@ -139,10 +137,6 @@ def parse_products(html):
     return products
 
 def fetch_category_products(cat_url):
-    """
-    并发任务：抓取单个分类下所有产品（分页）
-    """
-    import time
     all_products = []
     url_set = set()
     with sync_playwright() as p:
@@ -157,17 +151,10 @@ def fetch_category_products(cat_url):
             url = f"{BASE_URL}{cat_url}?page={page_num}&size={PRODUCTS_PER_PAGE}"
             try:
                 page.goto(url, wait_until="networkidle", timeout=60000)
-                # 增加等待产品列表元素的重试机制
-                found = False
-                for _ in range(3):
-                    try:
-                        page.wait_for_selector('.ItemList_collectionContent__aqxzo', timeout=4000)
-                        found = True
-                        break
-                    except Exception:
-                        time.sleep(2)
-                if not found:
-                    logging.warning(f"{cat_url} 多次等待产品列表超时，可能无产品")
+                try:
+                    page.wait_for_selector('.ItemList_collectionContent__aqxzo', timeout=10000)
+                except Exception:
+                    pass
                 html = page.content()
                 products = parse_products(html)
                 if last_page_data is not None and products == last_page_data:
@@ -214,7 +201,6 @@ def main():
                 logging.info(f"{cat_url} 完成，累计产品数: {len(all_products)}")
             except Exception as exc:
                 logging.error(f"{cat_url} 发生异常: {exc}")
-            # 实时保存（未去重）
             with open(out_file, "w", encoding="utf-8") as f:
                 json.dump(all_products, f, ensure_ascii=False, indent=2)
 
