@@ -32,31 +32,34 @@ def main():
     df_display = df_products_original.copy()
     st.sidebar.header("筛选和搜索")
 
-    # 分类筛选
-    if 'category' in df_display.columns:
-        unique_categories = ["所有分类"] + sorted(df_display['category'].astype(str).unique().tolist())
-        selected_category = st.sidebar.selectbox("按产品主分类筛选 (Filter by Category)", unique_categories)
-        if selected_category != "所有分类":
+    # 分类统计
+    category_counts = {}
+    if 'category' in df_products_original.columns:
+        for cat, cnt in df_products_original['category'].value_counts().items():
+            category_counts[cat] = cnt
+        total_categories = len(category_counts)
+        # 构造下拉选项，带数量
+        unique_categories = ["所有分类"] + [
+            f"{cat} ({category_counts[cat]})" for cat in sorted(category_counts)
+        ]
+        # 在下拉框标题后显示分类总数
+        st.sidebar.markdown(
+            f"<span style='font-weight:bold'>按产品主分类筛选 (Filter by Category)</span> <span style='color:gray'>（共 {total_categories} 类）</span>",
+            unsafe_allow_html=True
+        )
+        selected = st.sidebar.selectbox("", unique_categories)
+        # 解析选择
+        if selected != "所有分类":
+            # 去掉括号及数量
+            selected_category = selected.rsplit(' (', 1)[0]
             df_display = df_display[df_display['category'] == selected_category]
     else:
         st.sidebar.text("数据中未找到 'category' 字段用于分类。")
 
-    # 关键词搜索
-    search_term = st.sidebar.text_input("搜索 (Search by Name, SKU, Item No., Brand, OE, etc.)")
-    if search_term:
-        search_cols = ['name', 'sku', 'item_number', 'brand', 'category', 'oe_number', 'interchange_number', 'fitment']
-        cols_to_search = [col for col in search_cols if col in df_display.columns]
-        df_temp = df_display.copy()
-        for col in cols_to_search:
-            is_list_series = df_temp[col].apply(type).eq(list).any()
-            if is_list_series:
-                df_temp[col] = df_temp[col].apply(lambda x: '; '.join(map(str, x)) if isinstance(x, list) else str(x))
-            # 其他类型直接转字符串
-            else:
-                df_temp[col] = df_temp[col].astype(str)
-        mask = df_temp[cols_to_search].apply(
-            lambda row: row.str.contains(search_term, case=False, na=False)
-        ).any(axis=1)
+    # 关键词搜索（仅模糊搜索名称）
+    search_term = st.sidebar.text_input("名称搜索")
+    if search_term and 'name' in df_display.columns:
+        mask = df_display['name'].astype(str).str.contains(search_term, case=False, na=False)
         df_display = df_display[mask]
 
     st.header("产品列表 (Product List)")
